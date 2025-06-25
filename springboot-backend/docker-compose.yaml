@@ -5,7 +5,7 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_DB: db_trip_portugal
+      POSTGRES_DB: microservices
       POSTGRES_USER: root
       POSTGRES_PASSWORD: password
     volumes:

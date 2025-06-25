@@ -1,7 +1,5 @@
-package com.example.springboot_backend.response;
+package com.example.springboot_backend.Response;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

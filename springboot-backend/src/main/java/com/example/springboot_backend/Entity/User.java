@@ -1,4 +1,4 @@
-package com.example.springboot_backend.entity;
+package com.example.springboot_backend.Entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

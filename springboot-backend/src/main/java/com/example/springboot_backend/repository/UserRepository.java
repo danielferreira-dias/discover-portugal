@@ -1,5 +1,5 @@
 package com.example.springboot_backend.repository;
-import com.example.springboot_backend.entity.User;
+import com.example.springboot_backend.Entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
