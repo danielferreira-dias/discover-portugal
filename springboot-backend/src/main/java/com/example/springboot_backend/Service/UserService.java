@@ -7,6 +7,7 @@ import com.example.springboot_backend.repository.UserRepository;
 import com.example.springboot_backend.Request.UserRequest;
 import com.example.springboot_backend.Response.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,11 +16,13 @@ import java.util.stream.Collectors;
 @Service
 public class UserService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<UserResponse> getAllUsers(){
@@ -38,20 +41,17 @@ public class UserService {
             throw new EmailAlreadyExistsException(request.getEmail());
         }
 
-        /*
-        // Getting Data
         final User user = User.builder()
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
                 .email(request.getEmail())
-                .password(passwordEncoder.encoder(request.getPassword()))
+                .password(passwordEncoder.encode(request.getPassword()))
                 .build();
 
-        // Saving
         userRepository.save(user);
-         */
 
         return UserResponse.builder()
+                .userId(user.getId())
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
                 .email(request.getEmail())
@@ -66,15 +66,14 @@ public class UserService {
         user.setLastName(request.getLastName());
         user.setEmail(request.getEmail());
 
-        /*
         if (request.getPassword() != null && !request.getPassword().isBlank()) {
             user.setPassword(passwordEncoder.encode(request.getPassword()));
         }
-        */
 
         userRepository.save(user);
 
         return UserResponse.builder()
+                .userId(user.getId())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .email(user.getEmail())
@@ -84,6 +83,8 @@ public class UserService {
     public UserResponse deleteUser(final Long userId) {
         final User user = this.userRepository.findById(userId).orElseThrow(
                 () -> new UserNotFoundException("User not found"));
+
+        userRepository.delete(user);
 
         return UserResponse.builder()
                 .firstName(user.getFirstName())
@@ -97,12 +98,11 @@ public class UserService {
                 () -> new UserNotFoundException("User not found"));
 
         return UserResponse.builder()
+                .userId(user.getId())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .email(user.getEmail())
                 .build();
     }
-
-
-
 }
+
