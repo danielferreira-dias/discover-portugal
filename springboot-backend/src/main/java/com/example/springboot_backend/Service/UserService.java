@@ -90,7 +90,6 @@ public class UserService {
                 .lastName(user.getLastName())
                 .email(user.getEmail())
                 .build();
-
     }
 
     public UserResponse getUserById(final Long userId) {
