@@ -1,11 +1,7 @@
-package com.example.springboot_backend.Service;
+package com.example.springboot_backend.user;
 
-import com.example.springboot_backend.Entity.User;
 import com.example.springboot_backend.exception.EmailAlreadyExistsException;
 import com.example.springboot_backend.exception.UserNotFoundException;
-import com.example.springboot_backend.repository.UserRepository;
-import com.example.springboot_backend.Request.UserRequest;
-import com.example.springboot_backend.Response.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -38,7 +34,7 @@ public class UserService {
     public UserResponse createUser(UserRequest request){
         // Check if User email already exists
         if (this.userRepository.existsByEmail(request.getEmail())) {
-            throw new EmailAlreadyExistsException(request.getEmail());
+            throw new EmailAlreadyExistsException("This email already exists");
         }
 
         final User user = User.builder()

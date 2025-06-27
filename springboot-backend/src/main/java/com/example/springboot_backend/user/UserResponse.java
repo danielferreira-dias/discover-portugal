@@ -1,4 +1,4 @@
-package com.example.springboot_backend.Request;
+package com.example.springboot_backend.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,14 +6,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-public class UserRequest {
+public class UserResponse {
 
+    private Long userId;
     private String firstName;
     private String lastName;
     private String email;
-    private String password;
 
 }
